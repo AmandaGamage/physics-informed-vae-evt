@@ -1,0 +1,12 @@
+{
+  "radiomapseer_dir": "data/RadioMapSeer",
+  "propagation_model": "DPM",
+  "n_maps": 300,
+  "n_tx_per_map": 10,
+  "target_outage_frac": 0.001,
+  "epochs": 50,
+  "batch_size": 4,
+  "learning_rate": 0.0001,
+  "seed": 42,
+  "output_dir": "runs/outage_01pct"
+}

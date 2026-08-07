@@ -1,0 +1,8 @@
+# Pinned to the versions used for the published results.
+numpy==1.26.4
+scipy==1.13.1
+pandas==2.2.2
+scikit-learn==1.5.1
+matplotlib==3.9.1
+Pillow==10.4.0
+tensorflow==2.19.0
