@@ -1,8 +1,5 @@
 # Physics-informed VAE-EVT for Tail-Aware Radio Map Prediction
 
-Reference implementation for the paper *Physics-informed VAE-EVT for Tail Aware
-Radio Map Prediction* (Gamage, Mehrnia and Gross, KTH Royal Institute of
-Technology).
 
 The framework predicts a full 256×256 SNR map in a single forward pass and
 models the bulk and the extreme lower tail of the SNR distribution separately:
