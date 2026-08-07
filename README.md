@@ -61,7 +61,6 @@ src/vaeevt/
 ├── callbacks.py    KL warmup and loss-weight ramps                (Sec. IV-A2)
 ├── metrics.py      outage RMSE, F1/precision/recall, routing threshold
 ├── evaluate.py     Table I and Fig. 2 reproduction
-├── visualize.py    Fig. 2/3/4 plotting
 └── train.py        training entry point
 ```
 

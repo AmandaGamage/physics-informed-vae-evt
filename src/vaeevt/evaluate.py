@@ -139,31 +139,7 @@ def write_reports(results, out_dir: Path):
     """Emit the Table I row and the per-map CSV backing Fig. 2."""
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    summary = pd.DataFrame(
-        [
-            {
-                "threshold": label,
-                "outage_fraction_pct": 100 * m["outage_fraction"],
-                "n_outage_pixels": m["n_outage_pixels"],
-                "rmse_outage_db": m["rmse_outage_sharp"],
-                "rmse_outage_mu_db": m["rmse_outage_mu"],
-                "rmse_outage_tail_db": m["rmse_outage_tail"],
-                "rmse_overall_db": m["rmse_overall_sharp"],
-                "rmse_good_db": m["rmse_good_sharp"],
-                "f1": m["f1"],
-                "precision": m["precision"],
-                "recall": m["recall"],
-                "roc_auc": m["roc_auc"],
-                "average_precision": m["average_precision"],
-                "tau": m["tau"],
-                "tau_selection": m.get("tau_selection", ""),
-                "pi_mean_outage": m["pi_mean_outage"],
-                "pi_mean_good": m["pi_mean_good"],
-            }
-            for label, m in results.items()
-        ]
-    )
-    summary.to_csv(out_dir / "table1_metrics.csv", index=False)
+
 
     rows = []
     for label, m in results.items():
@@ -181,9 +157,8 @@ def write_reports(results, out_dir: Path):
             out_dir / f"roc_{safe}.csv", index=False
         )
 
-    print("\n" + summary.to_string(index=False))
     print(f"\nReports written to {out_dir.resolve()}")
-    return summary
+    return
 
 
 def main(argv=None):
