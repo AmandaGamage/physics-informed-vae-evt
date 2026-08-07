@@ -60,7 +60,7 @@ src/vaeevt/
 ├── model.py        GPD reparameterisation, training/inference loop
 ├── callbacks.py    KL warmup and loss-weight ramps                (Sec. IV-A2)
 ├── metrics.py      outage RMSE, F1/precision/recall, routing threshold
-├── evaluate.py     Table I and Fig. 2 reproduction
+├── evaluate.py     evaluate the model 
 └── train.py        training entry point
 ```
 
