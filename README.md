@@ -14,7 +14,7 @@ network as a ten-channel input tensor.
 ## Install
 
 ```bash
-git clone https://github.com/USERNAME/physics-informed-vae-evt.git
+git https://github.com/AmandaGamage/physics-informed-vae-evt.git
 cd physics-informed-vae-evt
 
 python -m venv .venv && source .venv/bin/activate

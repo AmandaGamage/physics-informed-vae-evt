@@ -136,11 +136,7 @@ def evaluate_at_thresholds(model, X_test, y_test, scaler, cfg, tau=None, verbose
 
 
 def write_reports(results, out_dir: Path):
-    """Emit the Table I row and the per-map CSV backing Fig. 2."""
     out_dir.mkdir(parents=True, exist_ok=True)
-
-
-
     rows = []
     for label, m in results.items():
         maps = m["_per_map"]
