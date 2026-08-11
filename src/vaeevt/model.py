@@ -1,9 +1,4 @@
-"""The Physics-informed VAE-EVT model.
 
-Ties together the dual-latent encoder, the attention U-Net decoder and the
-composite objective, and implements the GPD reparameterisation that anchors the
-tail latent to the dataset-level extreme-value fit.
-"""
 
 from __future__ import annotations
 

@@ -1,19 +1,4 @@
-"""RadioMapSeer loading and dataset assembly.
 
-Expected layout on disk (as distributed with the dataset):
-
-    <radiomapseer_dir>/
-        png/buildings_complete/<map>.png
-        png/antennas/<map>_<tx>.png
-        gain/DPM/<map>_<tx>.png
-
-Produces:
-    X            (N, 256, 256, 10) float32   physics-informed input tensor
-    y            (N, 256, 256,  1) float32   normalised ground-truth SNR
-    outage_mask  (N, 256, 256,  1) float32   binary outage labels
-    scaler       SNRScaler
-    evt_params   dict with the GPD anchors and threshold statistics
-"""
 
 from __future__ import annotations
 

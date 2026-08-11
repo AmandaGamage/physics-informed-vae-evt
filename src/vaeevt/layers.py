@@ -1,7 +1,5 @@
 """Dual-latent encoder and attention U-Net decoder.
 
-Implements Sections III-B, III-C and III-D of the paper.
-
 Encoder: four strided convolutional residual blocks with widths
 {32, 64, 128, 256} compress the 256x256x10 input tensor to a 16x16 bottleneck.
 Two dense heads then produce the parameters of the Gaussian bulk latent and of

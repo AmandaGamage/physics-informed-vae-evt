@@ -1,13 +1,4 @@
-"""Gain-to-SNR conversion and the [0, 1] target scaler.
 
-Implements Section II-A of the paper:
-
-    gamma(p) = P_rx(p) - P_noise,     P_noise = 10*log10(B) + N0 + NF   [dBm]
-
-RadioMapSeer distributes path-gain maps as 8-bit grayscale PNGs. We map the
-pixel value linearly onto received power in dBm before subtracting the noise
-floor. The mapping constants live in `Config` (gain_min_dbm, gain_span_db).
-"""
 
 from __future__ import annotations
 

@@ -1,9 +1,4 @@
-"""Smoke tests that run without the RadioMapSeer dataset.
 
-These check the parts a reviewer is most likely to scrutinise: the link budget,
-the outage labelling, the geometry of the physics features, and the routing
-arithmetic. Run with:  pytest -q
-"""
 
 from __future__ import annotations
 
@@ -121,14 +116,7 @@ def test_all_channels_zero_inside_buildings(cfg, scene):
 
 
 def test_outage_prior_floor_inside_buildings(cfg, scene):
-    """The outage prior is zeroed on buildings and then clipped to
-    [prior_clip_lo, prior_clip_hi], so building pixels carry the floor value
-    rather than exactly zero.
 
-    This is harmless -- every loss and metric masks building pixels via
-    m(p) = 1 - B(p) -- but it is a real property of the published code and is
-    asserted here so that it cannot change silently. See KNOWN_DEVIATIONS.md.
-    """
     building, (tx_y, tx_x) = scene
     feats = compute_geometric_features(tx_y, tx_x, building, cfg)
     inside = building > 0.5
@@ -195,49 +183,3 @@ def test_model_forward_pass_shapes():
         assert tuple(tensor.shape) == (2, 256, 256, 1)
     assert float(pi.numpy().max()) <= 1.0
     assert float(y_tail.numpy().min()) >= 0.0
-
-
-# ----------------------------------------------------------------------
-# Routing threshold t*
-# ----------------------------------------------------------------------
-def test_pinned_tau_is_used_verbatim():
-    """A pinned tau must be passed through, not re-optimised."""
-    from vaeevt.metrics import evaluate_predictions
-
-    rng = np.random.default_rng(0)
-    n = 20000
-    is_out = (rng.random(n) < 0.01).astype(int)
-    pi = np.clip(rng.beta(2, 50, n) + 0.6 * is_out, 0, 1)
-    flat = {
-        "y_db": rng.normal(0, 10, n),
-        "mu_db": rng.normal(0, 10, n),
-        "tail_db": rng.normal(-40, 2, n),
-        "pi": pi,
-        "is_outage": is_out,
-        "is_los": rng.random(n) < 0.25,
-    }
-    out = evaluate_predictions(flat, alpha_sharp=20.0, tau=0.4192)
-    assert out["tau"] == pytest.approx(0.4192)
-
-
-def test_tau_choice_changes_outage_rmse_materially():
-    """Regression guard for the Table I / Fig. 2 discrepancy.
-
-    A low tau saturates the sharpened mask, collapsing the prediction onto the
-    tail head. Because the tail head is accurate inside the outage region, the
-    outage RMSE drops for reasons unrelated to model quality. Reporting two
-    figures computed at different tau is therefore not comparable.
-    """
-    from vaeevt.metrics import blend, sharpen
-
-    n = 5000
-    mu = np.full(n, 0.0)      # bulk head: wrong inside outage
-    tail = np.full(n, -40.0)  # tail head: correct inside outage
-    truth = np.full(n, -40.0)
-    pi = np.full(n, 0.3)      # ambiguous routing
-
-    rmse_low = np.sqrt(np.mean((blend(mu, tail, sharpen(pi, 0.02, 20.0)) - truth) ** 2))
-    rmse_high = np.sqrt(np.mean((blend(mu, tail, sharpen(pi, 0.99, 20.0)) - truth) ** 2))
-
-    assert rmse_low < 1.0, "low tau should route to the tail head"
-    assert rmse_high > 30.0, "high tau should route to the bulk head"

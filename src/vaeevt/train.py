@@ -1,11 +1,4 @@
-"""Training entry point.
 
-    python -m vaeevt.train --data /path/to/RadioMapSeer --outage-frac 0.001
-
-Reproduces the training run behind the reported results: 300 layouts x 10
-transmitters = 3000 environment-transmitter pairs, split 80/20 into 2400
-training and 600 test samples.
-"""
 
 from __future__ import annotations
 

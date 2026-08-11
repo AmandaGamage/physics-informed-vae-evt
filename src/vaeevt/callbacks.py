@@ -1,12 +1,4 @@
-"""Loss-weight schedules and training monitors (paper, Section IV-A2).
 
-The composite objective is not stable if every term is switched on at full
-weight from epoch 0: the KL terms cause posterior collapse, and the
-classification and sharpening terms drive pi to a degenerate constant before
-the reconstruction branches have learned anything. All four schedules below
-implement the "KL warmup ... with progressive ramping of the classification,
-outage reconstruction, and sharpening terms" described in the paper.
-"""
 
 from __future__ import annotations
 

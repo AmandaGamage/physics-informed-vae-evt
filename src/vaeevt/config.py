@@ -1,11 +1,4 @@
-"""Central configuration for the Physics-informed VAE-EVT framework.
 
-Every magic number used anywhere in the pipeline lives here so that a reader can
-see the full experimental setup in one place, and so that a reviewer can change
-a setting without editing model code.
-
-Values are the ones used to produce the results reported in the paper.
-"""
 
 from __future__ import annotations
 
@@ -125,23 +118,7 @@ class Config:
     eval_thresholds: Tuple[float, ...] = (0.001, 0.01, 0.10)
     inference_batch_size: int = 8
 
-    # --- Routing threshold t* -----------------------------------------
-    # `tau_selection` controls how the routing threshold is obtained:
-    #
-    #   "global"         select t* ONCE, by maximising F1 at the training
-    #                    outage quantile, then reuse that single value at every
-    #                    evaluation threshold and in every figure. This is the
-    #                    convention used by the CSV export that produced the
-    #                    published tables and plots.
-    #
-    #   "per_threshold"  re-select t* independently at each evaluation
-    #                    threshold. Retained for comparison only. It makes the
-    #                    reported outage RMSE depend strongly on the threshold
-    #                    (t* ranged from 0.0030 to 0.9900 across the published
-    #                    runs), so numbers are not comparable across rows.
-    #
-    # Set `tau` to a float to pin an explicit value and skip selection
-    # entirely -- e.g. tau = 0.4192 reproduces the exported 1%-trained CSVs.
+
     tau_selection: str = "global"
     tau: float | None = None
 

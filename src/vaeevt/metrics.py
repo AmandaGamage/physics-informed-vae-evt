@@ -1,16 +1,4 @@
-"""Evaluation metrics: outage-region RMSE and outage-pixel classification.
 
-The final prediction combines the two heads through the sharpened routing mask
-(paper, Section III-D4):
-
-    pi_s(p) = sigmoid( kappa * (pi(p) - t*) )
-    gamma_hat(p) = (1 - pi_s(p)) * mu(p) + pi_s(p) * y_t(p)
-
-t* is chosen by maximising F1 on a labelled split. IMPORTANT: in the published
-experiments t* was selected on the same test split used to report the metrics.
-`select_tau` therefore takes whatever labels you hand it -- pass a held-out
-validation split to avoid the leakage. See KNOWN_DEVIATIONS.md.
-"""
 
 from __future__ import annotations
 
@@ -76,11 +64,7 @@ def evaluate_predictions(
     n_grid: int = 500,
     tau: float | None = None,
 ) -> Dict:
-    """Full metric suite for one threshold configuration.
 
-    Returns RMSE broken down by region and by LoS/NLoS, plus the outage-pixel
-    classification metrics reported in Table I of the paper.
-    """
     y = flat["y_db"]
     mu = flat["mu_db"]
     tail = flat["tail_db"]

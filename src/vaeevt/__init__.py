@@ -1,19 +1,4 @@
-"""Physics-informed VAE-EVT for tail-aware radio map prediction.
 
-Reference implementation accompanying:
-
-    A. S. Gamage, N. Mehrnia and J. Gross,
-    "Physics-informed VAE-EVT for Tail Aware Radio Map Prediction".
-
-Quick start
------------
-    from vaeevt import Config, load_radiomapseer, build_dataset, build_model
-
-    cfg = Config(radiomapseer_dir="data/RadioMapSeer", target_outage_frac=0.001)
-    samples, all_snr = load_radiomapseer(cfg)
-    data = build_dataset(samples, all_snr, cfg)
-    model = build_model(data.evt_params, cfg)
-"""
 
 from .config import Config, set_global_seed
 from .dataset import Dataset, build_dataset, load_radiomapseer, rebuild_for_threshold

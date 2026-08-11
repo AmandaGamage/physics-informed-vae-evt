@@ -1,12 +1,4 @@
-"""Evaluation entry point.
 
-    python -m vaeevt.evaluate --data /path/to/RadioMapSeer --run runs/outage_01pct
-
-Reproduces Table I and the per-map RMSE distributions of Fig. 2. Because the
-outage threshold is an explicit conditioning channel, one trained model is
-evaluated at several quantiles without retraining: only channel 9 and the
-ground-truth labels are rebuilt.
-"""
 
 from __future__ import annotations
 

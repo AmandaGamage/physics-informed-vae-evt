@@ -1,7 +1,6 @@
 """Physics-informed preprocessing: geometry in, deterministic descriptors out.
 
-Implements Section III-A of the paper. Given a binary building occupancy map
-B and a transmitter location p_tx, we compute the nine deterministic channels
+Given a binary building occupancy map B and a transmitter location p_tx, we compute the nine deterministic channels
 that make up X_geo (the tenth channel, the normalised per-map threshold, is
 appended in `dataset.py` because it depends on the SNR map).
 
