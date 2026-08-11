@@ -26,7 +26,7 @@ Requires Python ≥ 3.10 and TensorFlow 2.19.
 **Resources.** A GPU with ≥ 16 GB of memory is recommended. Peak host RAM for
 the full run is roughly 20 GB: `X` alone is 3000 × 256 × 256 × 10 float32 ≈
 7.9 GB, and both the raw feature dictionaries and the train/test copies of `X`
-are briefly live alongside it. Reduce `--n-maps` if memory is tight — the
+are briefly live alongside it. Reduce `--n-maps` if memory is tight. The
 pipeline scales linearly.
 
 
