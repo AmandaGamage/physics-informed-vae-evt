@@ -2,8 +2,8 @@
 
 
 The framework predicts a full 256×256 SNR map in a single forward pass and
-models the bulk and the extreme lower tail of the SNR distribution separately:
-a Gaussian bulk latent and a GPD-anchored tail latent, routed per pixel by a
+models the bulk and the extreme lower tail of the SNR distribution separately.
+A Gaussian bulk latent and a GPD-anchored tail latent, routed per pixel by a
 learned outage probability. Deterministic scene geometry, line-of-sight,
 shadowing, penetration depth, distance is computed up front and fed to the
 network as a ten-channel input tensor.
@@ -29,12 +29,6 @@ the full run is roughly 20 GB: `X` alone is 3000 × 256 × 256 × 10 float32 ≈
 are briefly live alongside it. Reduce `--n-maps` if memory is tight — the
 pipeline scales linearly.
 
-
-
-We do not recommend `tensorflow-metal` for this workload: it is version-fragile
-against TF 2.19 and is [reported to crash when PyArrow is present in the same
-environment](https://developer.apple.com/forums/thread/803658), which `pandas`
-may pull in.
 
 
 
@@ -105,11 +99,7 @@ not bit-match the original run even though the method is identical.
 ## Citation
 
 ```bibtex
-@inproceedings{gamage2026vaeevt,
-  title     = {Physics-informed {VAE-EVT} for Tail Aware Radio Map Prediction},
-  author    = {Gamage, Amanda Sheron and Mehrnia, Niloofar and Gross, James},
-  booktitle = {TODO},
-  year      = {2026}
+@inproceedings{
 }
 ```
 
