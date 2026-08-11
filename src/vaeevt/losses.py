@@ -5,16 +5,7 @@
             + lambda_pi L_pi
             + lambda_out L_outage
             + lambda_s L_sharp
-            + lambda_los L_los_outage          <- see note
-
-Note: the published implementation carries a seventh term, L_los_outage, that
-does not appear in Eq. (8) of the paper. It penalises error specifically on
-outage pixels that are in line of sight -- a small and hard subset (8.3% of all
-outage pixels in the training split). It is kept here because it was active in
-the runs that produced the reported results. See KNOWN_DEVIATIONS.md.
-
-All terms operate on flattened tensors of shape (batch, 256*256) and are masked
-by the free-space indicator m(p) = 1 - B(p).
+            + lambda_los L_los_outage         
 """
 
 from __future__ import annotations
