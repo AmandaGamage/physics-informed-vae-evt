@@ -1,5 +1,3 @@
-
-
 from __future__ import annotations
 
 import json
@@ -37,15 +35,8 @@ class Config:
     snr_lo_percentile: float = 1.0
     snr_hi_percentile: float = 99.0
 
-    # ------------------------------------------------------------------
-    # Outage definition  (paper, Section II-A and III-A5)
-    # ------------------------------------------------------------------
-    # q in the paper, expressed as a fraction. 0.001 = 0.1% SNR quantile.
     target_outage_frac: float = 0.001
 
-    # ------------------------------------------------------------------
-    # Physics-informed preprocessing  (paper, Section III-A)
-    # ------------------------------------------------------------------
     los_ray_steps: int = 100  # samples per LoS ray
     shadow_steps: int = 30  # samples for the localised shadow score, N_s
     nlos_max_depth: float = 10.0  # d_max in Eq. (6)
@@ -62,9 +53,6 @@ class Config:
     prior_clip_lo: float = 0.01  # epsilon in Eq. (7)
     prior_clip_hi: float = 0.95
 
-    # ------------------------------------------------------------------
-    # Model  (paper, Section III-B/C/D)
-    # ------------------------------------------------------------------
     latent_dim: int = 16  # d_z = d_t
     encoder_widths: Tuple[int, ...] = (32, 64, 128, 256)
     bottleneck: int = 16  # 256 / 2^4
@@ -74,9 +62,6 @@ class Config:
     pi_temperature_range: Tuple[float, float] = (0.3, 1.5)
     pi_prior_rate: float = 0.02  # bias init for the outage logit
 
-    # ------------------------------------------------------------------
-    # Training  (paper, Section IV-A2)
-    # ------------------------------------------------------------------
     batch_size: int = 4
     epochs: int = 50
     learning_rate: float = 1e-4
@@ -110,9 +95,6 @@ class Config:
     separation_weight: float = 10.0
     sharp_weight_outage: float = 3.0
 
-    # ------------------------------------------------------------------
-    # Evaluation  (paper, Section III-D3 and IV)
-    # ------------------------------------------------------------------
     alpha_sharp: float = 20.0  # kappa, steepness of the sharpening sigmoid
     tau_grid_size: int = 500  # grid used to select t*
     eval_thresholds: Tuple[float, ...] = (0.001, 0.01, 0.10)
@@ -122,14 +104,9 @@ class Config:
     tau_selection: str = "global"
     tau: float | None = None
 
-    # ------------------------------------------------------------------
-    # I/O
-    # ------------------------------------------------------------------
     output_dir: str = "runs/default"
 
-    # ------------------------------------------------------------------
-    # Derived quantities
-    # ------------------------------------------------------------------
+
     @property
     def noise_floor_dbm(self) -> float:
         """P_noise = 10*log10(B) + N0 + NF  (paper, Section II-A)."""
@@ -149,9 +126,6 @@ class Config:
     def gain_dir(self) -> Path:
         return Path(self.radiomapseer_dir) / "gain" / self.propagation_model
 
-    # ------------------------------------------------------------------
-    # Serialisation
-    # ------------------------------------------------------------------
     def to_json(self, path: str | Path) -> None:
         Path(path).parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w") as fh:

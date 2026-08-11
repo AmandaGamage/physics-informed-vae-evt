@@ -1,13 +1,3 @@
-"""Composite training objective (paper, Section III-E).
-
-    L_total = lambda_r L_recon
-            + lambda_KL,b L_KL,b + lambda_KL,t L_KL,t
-            + lambda_pi L_pi
-            + lambda_out L_outage
-            + lambda_s L_sharp
-            + lambda_los L_los_outage         
-"""
-
 from __future__ import annotations
 
 import numpy as np

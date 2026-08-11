@@ -1,16 +1,3 @@
-"""Dual-latent encoder and attention U-Net decoder.
-
-Encoder: four strided convolutional residual blocks with widths
-{32, 64, 128, 256} compress the 256x256x10 input tensor to a 16x16 bottleneck.
-Two dense heads then produce the parameters of the Gaussian bulk latent and of
-the auxiliary Gaussian that seeds the GPD-anchored tail latent. The
-intermediate feature maps are cached for the decoder's skip connections.
-
-Decoder: the concatenated latents seed a U-Net that upsamples back to 256x256,
-applies spatial attention gated by the edge channel E(p), and feeds three
-heads -- bulk (mu, log sigma^2), tail (y_t) and outage (pi).
-"""
-
 from __future__ import annotations
 
 import numpy as np

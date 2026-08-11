@@ -1,28 +1,3 @@
-"""Physics-informed preprocessing: geometry in, deterministic descriptors out.
-
-Given a binary building occupancy map B and a transmitter location p_tx, we compute the nine deterministic channels
-that make up X_geo (the tenth channel, the normalised per-map threshold, is
-appended in `dataset.py` because it depends on the SNR map).
-
-Channel order, matching the paper's
-
-    X_geo = stack(B, T_x, M_LOS, d_L, S_NLOS, D_NLOS, E, P_outage, D_all, thr)
-
-  0  building_map    B(p)          binary occupancy
-  1  tx_map          T_x(p)        truncated Gaussian transmitter proximity
-  2  los_mask        M_LOS(p)      1 on line-of-sight pixels
-  3  los_dist        d_L(p)        LoS-masked normalised log distance, Eq. (5)
-  4  nlos_shadow     S_NLOS(p)     localised shadowing score
-  5  nlos_depth      D_NLOS(p)     normalised penetration depth, Eq. (6)
-  6  shadow_edge     E(p)          LoS/NLoS boundary map for spatial attention
-  7  outage_prior    P_outage(p)   coarse geometric outage risk, Eq. (7)
-  8  dist_all        D_all(p)      normalised distance on all valid pixels
-  9  threshold       thr_hat       broadcast normalised per-map threshold
-
-All channels are forced to zero on building pixels and masked out of every loss
-and metric.
-"""
-
 from __future__ import annotations
 
 from typing import Dict
