@@ -1,28 +1,4 @@
-"""Per-map outage labelling and the dataset-level GPD anchors.
 
-Section II-A of the paper defines the outage region as
-
-    O = {p in Omega : gamma(p) < gamma_th},
-
-with gamma_th the q-th percentile of the per-map SNR distribution over the
-free-space pixels Omega.
-
-`compute_permap_outage_mask` implements this, plus two guards that the
-published experiments relied on. Both are consequences of the 8-bit
-quantisation of the RadioMapSeer gain maps, which produces large ties at the
-low end of the SNR distribution:
-
-  1. If strictly fewer than ceil(|Omega| * q) pixels fall below the percentile,
-     the n lowest-ranked pixels are taken instead (rank fallback).
-  2. If more than twice that many pixels fall at or below the percentile
-     (i.e. a large tie block at the quantisation floor), a random subset of
-     size n is retained.
-
-Guard (2) means the realised label set is a random subset of {gamma <= gamma_th}
-rather than the whole set. This is a deviation from Eq. (2) and is documented in
-KNOWN_DEVIATIONS.md. It is reproduced here because it is what produced the
-published numbers; pass `strict=True` to disable both guards.
-"""
 
 from __future__ import annotations
 
@@ -39,23 +15,6 @@ def compute_permap_outage_mask(
     rng: np.random.Generator | None = None,
     strict: bool = False,
 ) -> Tuple[np.ndarray, float]:
-    """Return (boolean outage mask over the full grid, threshold in dB).
-
-    Parameters
-    ----------
-    snr_db
-        (M, M) SNR map in dB.
-    valid_mask
-        (M, M) boolean, True on free-space pixels (Omega).
-    target_frac
-        q expressed as a fraction, e.g. 0.001 for the 0.1% quantile.
-    rng
-        Generator used by the tie-breaking subsample. Seeded for reproducibility.
-    strict
-        If True, return exactly {gamma <= gamma_th} with no rank fallback and
-        no tie subsampling. This follows Eq. (2) literally but does not
-        reproduce the published label counts.
-    """
     rng = rng or np.random.default_rng(0)
 
     valid_snr = snr_db[valid_mask]
