@@ -50,7 +50,7 @@ class PhysicsInformedVAEEVT(keras.Model):
 
     def reparameterize_gpd(self, mu, logvar, xi, beta):
         """Draw the tail latent by pushing an auxiliary Gaussian through the
-        GPD quantile function (paper, Section III-B2):
+        GPD quantile function
 
             z_aux ~ N(mu_p, sigma_p^2 I)
             u     = sigmoid(z_aux / 2)  in (0, 1)
