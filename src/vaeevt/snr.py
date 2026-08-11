@@ -26,8 +26,7 @@ class SNRScaler:
     """Min-max scaler between SNR in dB and the normalised [0, 1] target space.
 
     The bounds are the 1st and 99th percentiles of the SNR distribution, so a
-    small fraction of pixels saturate at 0 and 1 after `transform`. See
-    KNOWN_DEVIATIONS.md for why this matters at the 0.1% outage threshold.
+    small fraction of pixels saturate at 0 and 1 after `transform`
     """
 
     def __init__(self, snr_min: float, snr_max: float):
